@@ -3,9 +3,14 @@ import { DiamondSizes } from "./DiamondSizes.js"
 import { Metals } from "./Metals.js"
 import { JewelryStyles } from "./JewelryStyles.js"
 import { Orders } from "./Orders.js"
+import { addCustomOrder } from "./database.js"
 document.addEventListener(
     "click",
     (event) => {
+        const buttonClicked = event.target
+        if (buttonClicked.id === "orderButton") {
+            addCustomOrder()
+        }
     }
 )
 
