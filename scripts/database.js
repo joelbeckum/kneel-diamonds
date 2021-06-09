@@ -31,6 +31,7 @@ const database = {
             metalId: 3,
             sizeId: 2,
             styleId: 3,
+            price: 3200.55,
             timestamp: 1614659931693
         }
     ],
@@ -75,10 +76,47 @@ export const addCustomOrder = () => {
     newOrder.id = database.customOrders[lastIndex].id + 1
     newOrder.timestamp = Date.now()
 
+    newOrder.price = priceCalculator(newOrder)
+
     database.customOrders.push(newOrder)
 
     database.orderBuilder = {}
 
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
+
+const priceCalculator = (order) => {
+    let totalPrice = 0
+
+    const foundMetal = database.metals.find(metal => metal.id === order.metalId)
+    totalPrice += foundMetal.price
+
+    const foundSize = database.sizes.find(size => size.id === order.sizeId)
+    totalPrice += foundSize.price
+
+    const foundStyle = database.styles.find(style => style.id === order.styleId)
+    totalPrice += foundStyle.price
+
+    totalPrice *= priceMultiplier
+
+    return totalPrice
+}
+
+let priceMultiplier = 1
+
+document.addEventListener(
+    "change",
+    (event) => {
+        if (event.target.name === "jewelryType") {
+            priceMultiplier = parseInt(event.target.value)
+        }
+    }
+)
+
+document.addEventListener(
+    "stateChanged",
+    (event) => {
+        priceMultiplier = 1
+    }
+)
  
