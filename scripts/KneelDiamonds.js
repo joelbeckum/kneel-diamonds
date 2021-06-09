@@ -4,6 +4,7 @@ import { Metals } from "./Metals.js"
 import { JewelryStyles } from "./JewelryStyles.js"
 import { Orders } from "./Orders.js"
 import { addCustomOrder } from "./database.js"
+
 document.addEventListener(
     "click",
     (event) => {
@@ -34,6 +35,12 @@ export const KneelDiamonds = () => {
         </article>
 
         <article>
+            <input id="ringType" type="radio" name="jewelryType" value="1" checked />Ring
+            <input id="earringType" type="radio" name="jewelryType" value="2" />Earring
+            <input id="necklaceType" type="radio" name="jewelryType" value="4" />Necklace
+        </article>
+
+        <article class="types">
             <button id="orderButton">Create Custom Order</button>
         </article>
 
